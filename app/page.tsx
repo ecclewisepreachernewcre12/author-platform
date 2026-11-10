@@ -54,9 +54,8 @@ export default function HomePage() {
 
       {/* Minimal Footer */}
       <footer className="w-full max-w-4xl mx-auto px-6 py-8 border-t border-[#221C18] text-center text-[11px] text-[#6E6259]">
-        <p>&copy; {new Date().getFullYear()} Ecclewise Preacher. All rights reserved.</p>
+        <p>&copy; 2026 Ecclewise Preacher. All rights reserved.</p>
       </footer>
-
     </div>
   )
 }
