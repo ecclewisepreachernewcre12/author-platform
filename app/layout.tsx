@@ -16,11 +16,8 @@ export const metadata: Metadata = {
   title: 'ECCLEWISE PREACHER | Prophetic History & Insights',
   description: 'The official platform of Joseph Esenowo sharing prophetic letters, articles, essays, and books freely.',
   icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/icon.png', type: 'image/png' },
-    ],
-    apple: '/apple-touch-icon.png',
+    icon: '/icon.png',
+    apple: '/icon.png',
   },
   openGraph: {
     title: 'ECCLEWISE PREACHER',
