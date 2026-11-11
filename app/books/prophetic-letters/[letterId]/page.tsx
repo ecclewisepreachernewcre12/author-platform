@@ -4,6 +4,13 @@ import { useState, use } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+// Tell Next.js all the valid paths to prerender statically for Vercel
+export function generateStaticParams() {
+  return Array.from({ length: 27 }, (_, i) => ({
+    letterId: `letter-${i + 1}`,
+  }))
+}
+
 const letterPageCounts: { [key: string]: { title: string; totalPages: number } } = {
   "letter-1": { title: "Letter 1", totalPages: 35 },
   "letter-2": { title: "Letter 2", totalPages: 35 },
@@ -49,7 +56,7 @@ const letter1Page1Paragraphs = [
 
 export default function LetterReaderPage({ params }: { params: Promise<{ letterId: string }> }) {
   const resolvedParams = use(params)
-  const letterKey = resolvedParams.letterId ? resolvedParams.letterId.toLowerCase() : 'letter-1'
+  const letterKey = resolvedParams?.letterId ? resolvedParams.letterId.toLowerCase() : 'letter-1'
   
   const currentLetter = letterPageCounts[letterKey] || { title: "Prophetic Letter", totalPages: 10 }
 
