@@ -1,10 +1,9 @@
 'use client'
-export const dynamic = 'force-dynamic'
+
 import { useState, use } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-// Define the page counts for each letter based on your archive structure
 const letterPageCounts: { [key: string]: { title: string; totalPages: number } } = {
   "letter-1": { title: "Letter 1", totalPages: 35 },
   "letter-2": { title: "Letter 2", totalPages: 35 },
@@ -35,21 +34,30 @@ const letterPageCounts: { [key: string]: { title: string; totalPages: number } }
   "letter-27": { title: "Letter 27", totalPages: 27 },
 }
 
+const letter1Page1Paragraphs = [
+  "In the quiet expanse of prophetic history, we are summoned to observe not merely the passage of time, but the intentional unfolding of divine architecture. Every generation faces a decisive turning point—a moment where standard human systems reach their outer boundary, forcing the heart to seek foundational truth.",
+  "When we look back at the origins documented across sacred timelines, we see that shift always begins in secret. It starts within a remnant whose eyes have been opened to see beyond contemporary distractions. They recognize that the noise of the world is often a cover for spiritual vacuum.",
+  "To read these letters is to step into an ongoing record of awakening. They are not written to satisfy casual curiosity, but to serve as a beacon for those who feel called to hold the line of integrity when external structures tremble.",
+  "Consider the weight of 1 Samuel 10:1—the pouring of oil upon the head, marking a transition from ordinary existence into designated purpose. That act was not merely ceremonial; it was a physical sign of an invisible spiritual reality that alters history.",
+  "Similarly, John 1:1 reminds us of the eternal anchor: in the beginning was the Word. Before any earthly authority, economic framework, or cultural shift took form, the Word was already established. Everything we experience today must be measured against that original light.",
+  "As you move through this archive, approach each entry as an intentional study. The world encourages swift consumption and rapid forgetting, but prophetic history demands slow, deliberate reflection.",
+  "We live in a time where values are frequently traded for convenience, and moral clarity is diluted by consensus. Yet, the principles preserved in these pages remain unshakeable, standing as a test to every age.",
+  "Let it be understood that true strength does not rely on volume or visibility, but on alignment with divine order. When a person aligns with truth, their life becomes a steady testimony against prevailing darkness.",
+  "This first letter serves as the doorway into a broader room. Here, the groundwork is laid, preparing the mind and spirit to navigate the deeper revelations that follow across all eight badges.",
+  "Take time with these words. Turn each thought over with care, for in understanding the roots of prophetic history, you prepare yourself to navigate the future with confidence and unwavering purpose."
+]
+
 export default function LetterReaderPage({ params }: { params: Promise<{ letterId: string }> }) {
-  // Unwrap params using React.use() for Next.js app router
   const resolvedParams = use(params)
-  const letterKey = resolvedParams.letterId.toLowerCase()
+  const letterKey = resolvedParams.letterId ? resolvedParams.letterId.toLowerCase() : 'letter-1'
   
   const currentLetter = letterPageCounts[letterKey] || { title: "Prophetic Letter", totalPages: 10 }
 
   const pathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  
-  // State for active page number (starts at Page 1)
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  // Handlers for Previous and Next page buttons
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
@@ -111,7 +119,7 @@ export default function LetterReaderPage({ params }: { params: Promise<{ letterI
         </div>
       )}
 
-      {/* Main Content / Manuscript Reader View */}
+      {/* Main Content Reader */}
       <main className="w-full max-w-4xl mx-auto px-6 py-16 space-y-10">
         
         {/* Back Link & Header */}
@@ -150,7 +158,7 @@ export default function LetterReaderPage({ params }: { params: Promise<{ letterI
           </div>
         </div>
 
-        {/* Manuscript Page Paper Box */}
+        {/* Manuscript Page Paper Container */}
         <div className="bg-gradient-to-b from-[#1F150E] to-[#140D09] border border-[#594230] rounded-2xl p-8 sm:p-14 space-y-8 shadow-2xl relative min-h-[400px] flex flex-col justify-between">
           
           <div className="space-y-6">
@@ -159,17 +167,28 @@ export default function LetterReaderPage({ params }: { params: Promise<{ letterI
               <span className="text-[#D4AF37] font-bold">Page {currentPage} of {currentLetter.totalPages}</span>
             </div>
 
-            <div className="space-y-4 pt-4">
-              <h2 className="text-xl font-serif text-[#FFF5D6]">
-                {currentLetter.title} — Page {currentPage} Insights
+            <div className="space-y-6 pt-2">
+              <h2 className="text-xl sm:text-2xl font-serif text-[#FFF5D6]">
+                {currentLetter.title} — Page {currentPage}
               </h2>
-              <div className="w-10 h-0.5 bg-[#D4AF37]" />
-              <p className="text-sm sm:text-base text-[#D1C2B0] leading-relaxed pt-2 font-normal">
-                &ldquo;In the unfolding of prophetic history, every single word carries the weight of a generation. As you navigate page {currentPage} of {currentLetter.totalPages}, recognize that these entries are preserved to anchor the remnant in truth, spiritual clarity, and unwavering foundational integrity...&rdquo;
-              </p>
-              <p className="text-sm sm:text-base text-[#D1C2B0] leading-relaxed">
-                The visions documented here transcend ordinary understanding, pointing directly to the spiritual architecture governing our times. He that has an ear, let him heed what the Spirit speaks through these letters.
-              </p>
+              <div className="w-12 h-0.5 bg-[#D4AF37]" />
+
+              {/* Renders all 10 paragraphs on Page 1 of Letter 1 */}
+              {letterKey === 'letter-1' && currentPage === 1 ? (
+                <div className="space-y-6 text-sm sm:text-base text-[#D1C2B0] leading-relaxed font-normal pt-2">
+                  {letter1Page1Paragraphs.map((para, idx) => (
+                    <p key={idx} className="first-letter:text-xl first-letter:font-serif first-letter:text-[#F3E5AB]">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-6 text-sm sm:text-base text-[#D1C2B0] leading-relaxed font-normal pt-2 italic">
+                  <p>
+                    &ldquo;You are currently viewing Page {currentPage} of {currentLetter.title}. Place your text here for page {currentPage}...&rdquo;
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
