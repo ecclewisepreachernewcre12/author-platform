@@ -1,51 +1,34 @@
-import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter' 
-})
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-const playfair = Playfair_Display({ 
-  subsets: ['latin'],
-  variable: '--font-playfair' 
-})
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: 'ECCLEWISE PREACHER | Prophetic History & Insights',
-  description: 'The official platform of Joseph Esenowo sharing prophetic letters, articles, essays, and books freely.',
-  icons: {
-    icon: '/icon.png',
-    apple: '/icon.png',
-  },
-  openGraph: {
-    title: 'ECCLEWISE PREACHER',
-    description: 'Prophetic History & Insights by Joseph Esenowo.',
-    url: 'https://ecclewisepreacher.com.ng',
-    siteName: 'ECCLEWISE PREACHER',
-    images: [
-      {
-        url: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1200&auto=format&fit=crop',
-        width: 1200,
-        height: 630,
-        alt: 'ECCLEWISE PREACHER',
-      },
-    ],
-    type: 'website',
-  },
-}
+  title: "Ecclewise Preacher | Prophetic Archives & Books",
+  description: "High-end editorial manuscript reader and theological archive.",
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} scroll-smooth`}>
-      <body className="bg-[#120D0A] text-[#FDFBF7] antialiased">
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-[#0284C7] selection:text-white`}
+      >
         {children}
       </body>
     </html>
-  )
+  );
 }

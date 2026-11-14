@@ -72,33 +72,36 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#120D0A] text-[#FDFBF7] flex flex-col justify-between selection:bg-[#D4AF37] selection:text-black">
-      <header className="w-full max-w-7xl mx-auto px-6 sm:px-10 py-6 flex items-center justify-between border-b border-[#3B2B1F]/60 relative">
-        <Link href="/" className="font-serif tracking-widest text-xs sm:text-sm uppercase text-[#F3E5AB] hover:text-[#D4AF37] transition font-bold -ml-2 sm:-ml-4">
+    <div 
+      onContextMenu={(e) => e.preventDefault()}
+      className="min-h-screen bg-[#E8F1F5] text-[#111827] flex flex-col justify-between select-none selection:bg-[#0284C7] selection:text-white"
+    >
+      <header className="w-full max-w-7xl mx-auto px-6 sm:px-10 py-6 flex items-center justify-between border-b border-[#CBD5E1] relative">
+        <Link href="/" className="font-serif tracking-widest text-xs sm:text-sm uppercase text-[#0B2545] hover:text-[#0284C7] transition font-bold -ml-2 sm:-ml-4">
           Ecclewise Preacher
         </Link>
         
-        <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-wider font-semibold text-[#D1C2B0] mr-[-1rem]">
-          <Link href="/" className={`transition-all ${pathname === '/' ? 'text-[#D4AF37] font-bold' : 'hover:text-[#F3E5AB]'}`}>Home</Link>
+        <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-wider font-semibold text-[#334155] mr-[-1rem]">
+          <Link href="/" className={`transition-all ${pathname === '/' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Home</Link>
           <div className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-            <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-1 transition-all focus:outline-none py-1 hover:text-[#F3E5AB]">
+            <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-1 transition-all focus:outline-none py-1 hover:text-[#0B2545]">
               <span>About</span><span className="text-[10px]">&▾</span>
             </button>
             {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-[#170E09] border border-[#594230] rounded-xl shadow-2xl py-2 z-50 flex flex-col">
-                <Link href="/about/website" className="px-4 py-2 text-[11px] uppercase tracking-wider text-[#D1C2B0] hover:text-[#F3E5AB] hover:bg-[#2A1E16] transition">About the Website</Link>
-                <Link href="/about/author" className="px-4 py-2 text-[11px] uppercase tracking-wider text-[#D1C2B0] hover:text-[#F3E5AB] hover:bg-[#2A1E16] transition">About the Author</Link>
+              <div className="absolute top-full left-0 mt-1 w-48 bg-[#F4F9FB] border border-[#CBD5E1] rounded-xl shadow-lg py-2 z-50 flex flex-col">
+                <Link href="/about/website" className="px-4 py-2 text-[11px] uppercase tracking-wider text-[#334155] hover:text-[#0284C7] hover:bg-[#E8F1F5] transition">About the Website</Link>
+                <Link href="/about/author" className="px-4 py-2 text-[11px] uppercase tracking-wider text-[#334155] hover:text-[#0284C7] hover:bg-[#E8F1F5] transition">About the Author</Link>
               </div>
             )}
           </div>
-          <Link href="/articles" className={`transition-all ${pathname === '/articles' ? 'text-[#D4AF37] font-bold' : 'hover:text-[#F3E5AB]'}`}>Articles</Link>
-          <Link href="/books" className={`transition-all ${pathname.startsWith('/books') ? 'text-[#D4AF37] font-bold' : 'hover:text-[#F3E5AB]'}`}>Books</Link>
-          <Link href="/bonus" className={`transition-all ${pathname === '/bonus' ? 'text-[#D4AF37] font-bold' : 'hover:text-[#F3E5AB]'}`}>Bonus writings</Link>
-          <Link href="/contact" className={`transition-all ${pathname === '/contact' ? 'text-[#D4AF37] font-bold' : 'hover:text-[#F3E5AB]'}`}>Contact</Link>
-          <Link href="/give" className={`transition-all ${pathname === '/give' ? 'text-[#D4AF37] font-bold' : 'hover:text-[#F3E5AB]'}`}>Support</Link>
+          <Link href="/articles" className={`transition-all ${pathname === '/articles' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Articles</Link>
+          <Link href="/books" className={`transition-all ${pathname.startsWith('/books') ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Books</Link>
+          <Link href="/bonus" className={`transition-all ${pathname === '/bonus' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Bonus writings</Link>
+          <Link href="/contact" className={`transition-all ${pathname === '/contact' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Contact</Link>
+          <Link href="/give" className={`transition-all ${pathname === '/give' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Support</Link>
         </nav>
 
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-[#F3E5AB] p-2 focus:outline-none hover:text-[#D4AF37] transition">
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-[#0B2545] p-2 focus:outline-none hover:text-[#0284C7] transition">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileMenuOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />}
           </svg>
@@ -106,40 +109,40 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
       </header>
 
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-4 right-4 bg-[#170E09]/95 backdrop-blur-xl border border-[#594230] rounded-2xl p-6 shadow-2xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-[#D1C2B0]">
-          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#3B2B1F]/40">Home</Link>
-          <Link href="/articles" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#3B2B1F]/40">Articles</Link>
-          <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#3B2B1F]/40 text-[#D4AF37]">Books</Link>
-          <Link href="/bonus" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#3B2B1F]/40">Bonus writings</Link>
-          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#3B2B1F]/40">Contact</Link>
+        <div className="md:hidden absolute top-20 left-4 right-4 bg-[#F4F9FB]/95 backdrop-blur-xl border border-[#CBD5E1] rounded-2xl p-6 shadow-xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-[#334155]">
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Home</Link>
+          <Link href="/articles" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Articles</Link>
+          <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60 text-[#0284C7]">Books</Link>
+          <Link href="/bonus" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Bonus writings</Link>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Contact</Link>
           <Link href="/give" onClick={() => setMobileMenuOpen(false)} className="py-1">Support</Link>
         </div>
       )}
 
       <main className="w-full max-w-4xl mx-auto px-6 py-16 space-y-10">
         <div className="space-y-4">
-          <Link href="/books/prophetic-letters" className="inline-flex items-center text-xs uppercase tracking-widest text-[#D4AF37] hover:underline font-semibold">
+          <Link href="/books/prophetic-letters" className="inline-flex items-center text-xs uppercase tracking-widest text-[#0284C7] hover:underline font-bold">
             &larr; Back to Book 1 Badges
           </Link>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#3B2B1F]/60 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#CBD5E1] pb-6">
             <div>
-              <span className="text-[11px] uppercase tracking-widest text-[#D4AF37] font-semibold bg-[#2A1E16] px-3.5 py-1 rounded-full border border-[#594230]">
+              <span className="text-[11px] uppercase tracking-widest text-[#0B2545] font-bold bg-[#D5E6EE] px-3.5 py-1 rounded-full border border-[#B8D4E3]">
                 {currentLetter.title} &bull; Prophetic History
               </span>
-              <h1 className="text-2xl sm:text-4xl font-serif text-[#FFF5D6] pt-3">
+              <h1 className="text-2xl sm:text-4xl font-serif text-[#0B2545] pt-3 font-bold">
                 Manuscript Reader View
               </h1>
             </div>
 
-            <div className="flex items-center gap-3 bg-[#1F150E] border border-[#594230] px-4 py-2.5 rounded-xl shadow-md">
-              <span className="text-[11px] uppercase tracking-widest text-[#D1C2B0] font-bold">Jump to:</span>
+            <div className="flex items-center gap-3 bg-[#F4F9FB] border border-[#CBD5E1] px-4 py-2.5 rounded-xl shadow-sm">
+              <span className="text-[11px] uppercase tracking-widest text-[#475569] font-bold">Jump to:</span>
               <select 
                 value={currentPage}
                 onChange={(e) => {
                   setCurrentPage(Number(e.target.value))
                   window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
-                className="bg-[#120D0A] text-[#F3E5AB] border border-[#3B2B1F] text-xs font-semibold rounded-lg px-3 py-1.5 focus:outline-none focus:border-[#D4AF37] cursor-pointer"
+                className="bg-[#E8F1F5] text-[#0B2545] border border-[#CBD5E1] text-xs font-semibold rounded-lg px-3 py-1.5 focus:outline-none focus:border-[#0284C7] cursor-pointer"
               >
                 {Array.from({ length: currentLetter.totalPages }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
@@ -151,29 +154,29 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-b from-[#1F150E] to-[#140D09] border border-[#594230] rounded-2xl p-8 sm:p-14 space-y-8 shadow-2xl relative min-h-[400px] flex flex-col justify-between">
+        <div className="bg-[#F4F9FB] border border-[#CBD5E1] rounded-2xl p-8 sm:p-14 space-y-8 shadow-md relative min-h-[400px] flex flex-col justify-between">
           <div className="space-y-6">
-            <div className="flex justify-between items-center text-xs uppercase tracking-widest text-[#A69382] border-b border-[#3B2B1F]/50 pb-4">
+            <div className="flex justify-between items-center text-xs uppercase tracking-widest text-[#475569] border-b border-[#CBD5E1] pb-4 font-semibold">
               <span>Joseph Esenowo Collection</span>
-              <span className="text-[#D4AF37] font-bold">Page {currentPage} of {currentLetter.totalPages}</span>
+              <span className="text-[#0284C7] font-bold">Page {currentPage} of {currentLetter.totalPages}</span>
             </div>
 
             <div className="space-y-6 pt-2">
-              <h2 className="text-xl sm:text-2xl font-serif text-[#FFF5D6]">
+              <h2 className="text-xl sm:text-2xl font-serif text-[#0B2545] font-bold">
                 {currentLetter.title} — Page {currentPage}
               </h2>
-              <div className="w-12 h-0.5 bg-[#D4AF37]" />
+              <div className="w-12 h-0.5 bg-[#0284C7]" />
 
               {letterKey === 'letter-1' && currentPage === 1 ? (
-                <div className="space-y-6 text-sm sm:text-base text-[#D1C2B0] leading-relaxed font-normal pt-2">
+                <div className="space-y-6 text-base sm:text-lg text-[#111827] leading-loose font-normal pt-2">
                   {letter1Page1Paragraphs.map((para, idx) => (
-                    <p key={idx} className="first-letter:text-xl first-letter:font-serif first-letter:text-[#F3E5AB]">
+                    <p key={idx} className="first-letter:text-2xl first-letter:font-serif first-letter:font-bold first-letter:text-[#0B2545]">
                       {para}
                     </p>
                   ))}
                 </div>
               ) : (
-                <div className="space-y-6 text-sm sm:text-base text-[#D1C2B0] leading-relaxed font-normal pt-2 italic">
+                <div className="space-y-6 text-base sm:text-lg text-[#334155] leading-loose font-normal pt-2 italic">
                   <p>
                     &ldquo;You are currently viewing Page {currentPage} of {currentLetter.title}. Place your text here for page {currentPage}...&rdquo;
                   </p>
@@ -182,30 +185,30 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-8 border-t border-[#3B2B1F] mt-8">
+          <div className="flex items-center justify-between pt-8 border-t border-[#CBD5E1] mt-8">
             <button
               onClick={goToPreviousPage}
               disabled={currentPage === 1}
-              className={`px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition border ${
+              className={`px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-bold transition border ${
                 currentPage === 1 
-                  ? 'bg-[#120D0A]/40 text-[#594230] border-[#3B2B1F] cursor-not-allowed' 
-                  : 'bg-[#120D0A] text-[#F3E5AB] border-[#594230] hover:border-[#D4AF37] hover:bg-[#2A1E16]'
+                  ? 'bg-[#E8F1F5] text-[#94A3B8] border-[#CBD5E1] cursor-not-allowed' 
+                  : 'bg-[#E8F1F5] text-[#0B2545] border-[#CBD5E1] hover:border-[#0284C7] hover:bg-[#D5E6EE]'
               }`}
             >
               &larr; Previous Page
             </button>
 
-            <span className="text-xs text-[#A69382] uppercase tracking-wider font-medium hidden sm:inline">
+            <span className="text-xs text-[#475569] uppercase tracking-wider font-bold hidden sm:inline">
               Page {currentPage} / {currentLetter.totalPages}
             </span>
 
             <button
               onClick={goToNextPage}
               disabled={currentPage === currentLetter.totalPages}
-              className={`px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition border ${
+              className={`px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-bold transition border ${
                 currentPage === currentLetter.totalPages 
-                  ? 'bg-[#120D0A]/40 text-[#594230] border-[#3B2B1F] cursor-not-allowed' 
-                  : 'bg-[#D4AF37] text-black border-[#D4AF37] hover:bg-[#f3df89] font-bold shadow-md'
+                  ? 'bg-[#E8F1F5] text-[#94A3B8] border-[#CBD5E1] cursor-not-allowed' 
+                  : 'bg-[#0284C7] text-white border-[#0284C7] hover:bg-[#0369A1] shadow-sm'
               }`}
             >
               Next Page &rarr;
@@ -214,17 +217,16 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
         </div>
       </main>
 
-      <footer className="w-full max-w-7xl mx-auto px-6 py-8 border-t border-[#3B2B1F]/60 text-center text-[11px] text-[#A69382]">
+      <footer className="w-full max-w-7xl mx-auto px-6 py-8 border-t border-[#CBD5E1] text-center text-xs text-[#475569] font-medium">
         <p>&copy; 2026 Ecclewise Preacher. All rights reserved.</p>
       </footer>
     </div>
   )
 }
 
-{/* Default export wrapped in Suspense directly solves Vercel's blocking-prerender error! */}
 export default function LetterReaderPage({ params }: { params: Promise<{ letterId: string }> }) {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#120D0A] flex items-center justify-center text-[#D4AF37]">Loading Manuscript...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#E8F1F5] flex items-center justify-center text-[#0B2545] font-serif text-lg">Loading Manuscript...</div>}>
       <LetterContent params={params} />
     </Suspense>
   )
