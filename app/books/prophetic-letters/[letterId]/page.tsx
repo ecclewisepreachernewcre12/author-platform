@@ -196,7 +196,6 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
           </div>
         </div>
 
-        {/* Manuscript Content directly on Webpage Canvas (No Box Background) */}
         <div className="space-y-8 pt-4 pb-8">
           
           <div className="flex justify-between items-center text-xs uppercase tracking-widest text-[#64748B] font-semibold border-b border-[#CBD5E1] pb-3">
@@ -227,7 +226,6 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
             )}
           </div>
 
-          {/* Bottom Pagination Controls */}
           <div className="flex items-center justify-between pt-10 border-t border-[#CBD5E1] mt-12">
             <button
               onClick={goToPreviousPage}

@@ -214,7 +214,7 @@ export default function BookDetailPage() {
               </span>
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif text-white leading-tight font-bold drop-shadow-md">
-              Prophetic Letters from a Prophetic History
+              Prophetic Letters from a Prophetic History: The Summary
             </h1>
             <p className="font-serif italic text-lg sm:text-xl text-sky-200">
               By Joseph Esenowo
