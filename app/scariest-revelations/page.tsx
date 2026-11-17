@@ -10,7 +10,6 @@ export default function ScariestRevelationsPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
   
-  // State to track which revelation is currently expanded/viewed
   const [activeRevelation, setActiveRevelation] = useState<number>(1)
 
   const revelations = [
@@ -61,9 +60,7 @@ export default function ScariestRevelationsPage() {
               </div>
             )}
           </div>
-          <Link href="/articles" className={`transition-all ${pathname === '/articles' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Articles</Link>
           <Link href="/books" className={`transition-all ${pathname === '/books' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Books</Link>
-          <Link href="/bonus" className={`transition-all ${pathname === '/bonus' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Bonus writings</Link>
           <Link href="/contact" className={`transition-all ${pathname === '/contact' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Contact</Link>
           <Link href="/give" className={`transition-all ${pathname === '/give' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Support</Link>
         </nav>
@@ -78,9 +75,7 @@ export default function ScariestRevelationsPage() {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-20 left-4 right-4 bg-[#F4F9FB]/95 backdrop-blur-xl border border-[#CBD5E1] rounded-2xl p-6 shadow-xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-[#334155]">
           <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Home</Link>
-          <Link href="/articles" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60 text-[#0284C7]">Articles</Link>
           <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Books</Link>
-          <Link href="/bonus" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Bonus writings</Link>
           <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Contact</Link>
           <Link href="/give" onClick={() => setMobileMenuOpen(false)} className="py-1">Support</Link>
         </div>
@@ -91,8 +86,8 @@ export default function ScariestRevelationsPage() {
         
         {/* Back Link & Header */}
         <div className="space-y-6">
-          <Link href="/articles" className="inline-flex items-center text-xs uppercase tracking-widest text-[#0284C7] hover:underline font-bold">
-            &larr; Back to Articles Library
+          <Link href="/" className="inline-flex items-center text-xs uppercase tracking-widest text-[#0284C7] hover:underline font-bold">
+            &larr; Back to home
           </Link>
           <div className="text-center space-y-4 border-b border-[#CBD5E1] pb-10">
             <span className="text-[11px] uppercase tracking-widest text-[#0B2545] font-bold bg-[#D5E6EE] px-4 py-1.5 rounded-full border border-[#B8D4E3]">

@@ -10,17 +10,44 @@ export default function BooksIndexPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
 
-  // Library of published books
+  // Library of books formatted like a rich, fulfilling chat/archive list
   const books = [
     {
       id: "prophetic-letters",
-      title: "Prophetic Letters from a Prophetic History",
-      subtitle: "Book 1: Comprehensive Archive",
-      snippet: "Spanning Letters 1 through 27 across 8 distinct badges and companion bonus writings. Distributed freely.",
-      badgeCount: "8 Badges",
-      letterCount: "27 Letters"
+      title: "Prophetic Letters from a Prophetic History: The Summary",
+      preview: "",
+      badgeText: "27 Letters",
+      status: "Available Now",
+      cover: "/book-cover1.jpeg",
+      available: true
+    },
+    {
+      id: "coming-soon-2",
+      title: "The Sound of the Remnant",
+      preview: "A prophetic call to discernment and spiritual awakening in shifting times",
+      badgeText: "Vol. 02",
+      status: "Coming Soon",
+      cover: null,
+      available: false
+    },
+    {
+      id: "coming-soon-3",
+      title: "Blueprint of Tomorrow",
+      preview: "Visions of cultural alignment, destiny, and the architecture of the future",
+      badgeText: "Vol. 03",
+      status: "Coming Soon",
+      cover: null,
+      available: false
+    },
+    {
+      id: "coming-soon-4",
+      title: "The Economics of Divine Integrity",
+      preview: "Freely received, freely given — principles governing kingdom value",
+      badgeText: "Vol. 04",
+      status: "Coming Soon",
+      cover: null,
+      available: false
     }
-    // Future books can be added here easily as they are written!
   ]
 
   return (
@@ -29,91 +56,262 @@ export default function BooksIndexPage() {
       className="min-h-screen bg-[#E8F1F5] text-[#111827] flex flex-col justify-between select-none selection:bg-[#0284C7] selection:text-white"
     >
       
-      {/* Navigation Header */}
-      <header className="w-full max-w-7xl mx-auto px-6 sm:px-10 py-6 flex items-center justify-between border-b border-[#CBD5E1] relative">
-        <Link href="/" className="font-serif tracking-widest text-xs sm:text-sm uppercase text-[#0B2545] hover:text-[#0284C7] transition font-bold -ml-2 sm:-ml-4">
-          Ecclewise Preacher
-        </Link>
+      {/* 1. IMMERSIVE PRIMARY HERO & HEADER SECTION */}
+      <div className="relative w-full bg-[#0B2545] text-white overflow-hidden border-b border-[#0284C7]/30 shadow-xl">
         
-        <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-wider font-semibold text-[#334155] mr-[-1rem]">
-          <Link href="/" className={`transition-all ${pathname === '/' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Home</Link>
-          <div className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-            <button onClick={() => setDropdownOpen(!dropdownOpen)} className={`flex items-center gap-1 transition-all focus:outline-none py-1 ${pathname.startsWith('/about') ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>
-              <span>About</span><span className="text-[10px]">&▾</span>
-            </button>
-            {dropdownOpen && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-[#F4F9FB] border border-[#CBD5E1] rounded-xl shadow-lg py-2 z-50 flex flex-col">
-                <Link href="/about/website" className="px-4 py-2 text-[11px] uppercase tracking-wider text-[#334155] hover:text-[#0284C7] hover:bg-[#E8F1F5] transition">About the Website</Link>
-                <Link href="/about/author" className="px-4 py-2 text-[11px] uppercase tracking-wider text-[#334155] hover:text-[#0284C7] hover:bg-[#E8F1F5] transition">About the Author</Link>
-              </div>
-            )}
-          </div>
-          <Link href="/articles" className={`transition-all ${pathname === '/articles' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Articles</Link>
-          <Link href="/books" className={`transition-all ${pathname === '/books' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Books</Link>
-          <Link href="/bonus" className={`transition-all ${pathname === '/bonus' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Bonus writings</Link>
-          <Link href="/contact" className={`transition-all ${pathname === '/contact' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Contact</Link>
-          <Link href="/give" className={`transition-all ${pathname === '/give' ? 'text-[#0284C7] font-bold' : 'hover:text-[#0B2545]'}`}>Support</Link>
-        </nav>
+        {/* Sky Background Image Overlay */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center opacity-35 pointer-events-none transition-all duration-700"
+          style={{ backgroundImage: `url('/background.png')` }}
+        />
+        {/* Deep Atmospheric Sky Gradient */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#071930]/85 via-[#0B2545]/75 to-[#0B2545] pointer-events-none" />
+        {/* Soft Luminous Glow */}
+        <div className="absolute top-[-30%] left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-[#38BDF8]/20 blur-[130px] rounded-full pointer-events-none z-0" />
 
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-[#0B2545] p-2 focus:outline-none hover:text-[#0284C7] transition">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {mobileMenuOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />}
-          </svg>
-        </button>
-      </header>
-
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-20 left-4 right-4 bg-[#F4F9FB]/95 backdrop-blur-xl border border-[#CBD5E1] rounded-2xl p-6 shadow-xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-[#334155]">
-          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Home</Link>
-          <Link href="/articles" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Articles</Link>
-          <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60 text-[#0284C7]">Books</Link>
-          <Link href="/bonus" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Bonus writings</Link>
-          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-[#CBD5E1]/60">Contact</Link>
-          <Link href="/give" onClick={() => setMobileMenuOpen(false)} className="py-1">Support</Link>
-        </div>
-      )}
-
-      {/* Main Content */}
-      <main className="w-full max-w-4xl mx-auto px-6 py-16 space-y-12">
-        <div className="text-center space-y-4 border-b border-[#CBD5E1] pb-10">
-          <span className="text-[11px] uppercase tracking-widest text-[#0B2545] font-bold bg-[#D5E6EE] px-4 py-1.5 rounded-full border border-[#B8D4E3]">
-            Digital Literature Archive
-          </span>
-          <h1 className="text-3xl sm:text-5xl font-serif text-[#0B2545] leading-tight font-bold">
-            Books & Volumes
-          </h1>
-          <p className="text-base sm:text-lg text-[#111827] max-w-xl mx-auto font-normal">
-            By Joseph Esenowo &bull; Explore published books and their complete badge structures.
-          </p>
-        </div>
-
-        {/* Books List Grid */}
-        <div className="space-y-6">
-          {books.map((book) => (
-            <Link 
-              key={book.id} 
-              href={`/books/${book.id}`}
-              className="block bg-[#F4F9FB] border border-[#CBD5E1] rounded-2xl p-8 hover:border-[#0284C7] transition-all shadow-md group"
-            >
-              <div className="flex items-center justify-between text-[11px] text-[#0284C7] uppercase tracking-widest font-bold pb-3">
-                <span>{book.subtitle}</span>
-                <span className="text-[#475569] group-hover:text-[#0284C7] transition">View Archive &rarr;</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-serif text-[#0B2545] font-bold group-hover:text-[#0284C7] transition py-1">
-                {book.title}
-              </h2>
-              <p className="text-base sm:text-lg text-[#111827] pt-2">
-                {book.snippet}
-              </p>
-              <div className="flex gap-4 mt-6 pt-4 border-t border-[#CBD5E1] text-[11px] text-[#475569] uppercase tracking-wider font-bold">
-                <span className="bg-[#E8F1F5] px-3 py-1 rounded-md border border-[#CBD5E1] text-[#0B2545]">{book.badgeCount}</span>
-                <span className="bg-[#E8F1F5] px-3 py-1 rounded-md border border-[#CBD5E1] text-[#0B2545]">{book.letterCount}</span>
-              </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10">
+          
+          {/* Navigation Header */}
+          <header className="w-full py-6 flex items-center justify-between border-b border-white/15 relative">
+            <Link href="/" className="font-serif tracking-widest text-xs sm:text-sm uppercase text-white hover:text-[#38BDF8] transition font-bold -ml-2 sm:-ml-4">
+              Ecclewise Preacher
             </Link>
-          ))}
+            
+            <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-wider font-semibold text-sky-100 mr-[-1rem]">
+              <Link href="/" className={`transition-all ${pathname === '/' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Home</Link>
+              <div className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
+                <button onClick={() => setDropdownOpen(!dropdownOpen)} className={`flex items-center gap-1 transition-all focus:outline-none py-1 ${pathname.startsWith('/about') ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>
+                  <span>About</span><span className="text-[10px]">&▾</span>
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-48 bg-[#0F2E54] border border-white/15 rounded-xl shadow-2xl py-2 z-50 flex flex-col">
+                    <Link href="/about/website" className="px-4 py-2 text-[11px] uppercase tracking-wider text-sky-100 hover:text-[#38BDF8] hover:bg-white/5 transition">About the Website</Link>
+                    <Link href="/about/author" className="px-4 py-2 text-[11px] uppercase tracking-wider text-sky-100 hover:text-[#38BDF8] hover:bg-white/5 transition">About the Author</Link>
+                  </div>
+                )}
+              </div>
+              <Link href="/books" className={`transition-all ${pathname === '/books' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Books</Link>
+              <Link href="/contact" className={`transition-all ${pathname === '/contact' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Contact</Link>
+              <Link href="/give" className={`transition-all ${pathname === '/give' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Support</Link>
+            </nav>
+
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white p-2 focus:outline-none hover:text-[#38BDF8] transition" aria-label="Toggle Menu">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />}
+              </svg>
+            </button>
+          </header>
+
+          {/* Mobile Menu Drawer */}
+          {mobileMenuOpen && (
+            <div className="md:hidden absolute top-20 left-4 right-4 bg-[#0F2E54]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-6 shadow-2xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-sky-100">
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15">Home</Link>
+              <div>
+                <button 
+                  onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+                  className="w-full flex justify-between items-center hover:text-white py-1 border-b border-white/15"
+                >
+                  <span>About</span>
+                  <span>{mobileAboutOpen ? '▴' : '▾'}</span>
+                </button>
+                {mobileAboutOpen && (
+                  <div className="pl-4 py-2 space-y-2 flex flex-col bg-white/5 rounded-lg mt-2">
+                    <Link href="/about/website" onClick={() => setMobileMenuOpen(false)} className="text-[11px] text-sky-100 hover:text-[#38BDF8]">About the Website</Link>
+                    <Link href="/about/author" onClick={() => setMobileMenuOpen(false)} className="text-[11px] text-sky-100 hover:text-[#38BDF8]">About the Author</Link>
+                  </div>
+                )}
+              </div>
+              <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15 text-[#38BDF8]">Books</Link>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15">Contact</Link>
+              <Link href="/give" onClick={() => setMobileMenuOpen(false)} className="py-1">Support</Link>
+            </div>
+          )}
+
+          {/* Hero Banner Content */}
+          <div className="py-16 sm:py-24 text-center max-w-3xl mx-auto space-y-5">
+            <span className="inline-block text-[11px] uppercase tracking-[0.25em] text-[#38BDF8] font-bold bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-sm">
+              Digital Literature Archive
+            </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-white leading-tight font-bold drop-shadow-md">
+              Books &amp; Volumes
+            </h1>
+            <p className="font-serif italic text-lg sm:text-xl text-sky-200">
+              By Joseph Esenowo
+            </p>
+            <p className="text-sm sm:text-base text-sky-100/90 max-w-xl mx-auto leading-relaxed">
+              Select a volume from the sanctuary archive below to read the manuscripts—freely given.
+            </p>
+          </div>
+
         </div>
+      </div>
+
+      {/* 2. WHATSAPP-STYLE ARCHIVE FEED */}
+      <main className="w-full max-w-3xl mx-auto px-6 -mt-8 relative z-20 pb-16 space-y-6">
+        
+        {/* Archive Window Card */}
+        <div className="bg-white border border-[#CBD5E1] rounded-3xl shadow-2xl overflow-hidden">
+          
+          {/* Top Bar inside the Archive Card */}
+          <div className="bg-[#F4F9FB] px-6 py-4 border-b border-[#E2E8F0] flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7]" />
+              <span className="text-xs uppercase tracking-widest font-bold text-[#0B2545]">
+                Published &amp; Upcoming Volumes
+              </span>
+            </div>
+            <span className="text-[11px] font-semibold text-[#64748B]">
+              {books.length} Volumes
+            </span>
+          </div>
+
+          {/* Chat-Style Rows */}
+          <div className="divide-y divide-[#E2E8F0]">
+            {books.map((book) => (
+              book.available ? (
+                <Link 
+                  key={book.id} 
+                  href={`/books/${book.id}`}
+                  className="flex items-start gap-4 sm:gap-5 p-5 sm:p-6 hover:bg-[#F0F8FF] transition-all group relative"
+                >
+                  {/* Left Profile Avatar (Clean) */}
+                  <div className="relative shrink-0 mt-1">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#0284C7] shadow-md group-hover:scale-105 transition-transform bg-[#0B2545] flex items-center justify-center">
+                      {book.cover ? (
+                        <img 
+                          src={book.cover} 
+                          alt={book.title} 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-white font-serif font-bold text-lg">EP</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Center Title & Message Preview (Full title display) */}
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <div className="flex items-start justify-between gap-3">
+                      <h2 className="text-base sm:text-lg font-serif text-[#0B2545] font-bold group-hover:text-[#0284C7] transition">
+                        {book.title} {/* Title Wraps gracefully */}
+                      </h2>
+                      <span className="text-[11px] text-[#0284C7] font-bold shrink-0 mt-1">
+                        {book.status}
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#475569] font-normal leading-relaxed">
+                      {book.preview}
+                    </p>
+                  </div>
+
+                  {/* Right Pill & Chevron */}
+                  <div className="flex flex-col items-end gap-2 shrink-0 pl-2 mt-1">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#0284C7] text-white text-[10px] font-bold tracking-wide shadow-sm">
+                      {book.badgeText}
+                    </span>
+                    <span className="text-xs text-[#0284C7] font-bold group-hover:translate-x-1 transition-transform">
+                      Open &rarr;
+                    </span>
+                  </div>
+                </Link>
+              ) : (
+                <div 
+                  key={book.id}
+                  className="flex items-start gap-4 sm:gap-5 p-5 sm:p-6 bg-[#F8FAFC]/80 cursor-not-allowed group"
+                >
+                  {/* Left Muted Avatar */}
+                  <div className="relative shrink-0 mt-1">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#E2E8F0] border border-[#CBD5E1] text-[#64748B] flex items-center justify-center font-serif font-bold text-base sm:text-lg">
+                      EP
+                    </div>
+                  </div>
+
+                  {/* Center Title & Subtitle (Full title display) */}
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <div className="flex items-start justify-between gap-3">
+                      <h2 className="text-base sm:text-lg font-serif text-[#475569] font-bold">
+                        {book.title} {/* Title Wraps gracefully */}
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#64748B]">
+                      {book.preview}
+                    </p>
+                  </div>
+
+                  {/* Right Status Tag */}
+                  <div className="flex flex-col items-end gap-2 shrink-0 pl-2 mt-1">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#E2E8F0] text-[#475569] text-[10px] font-bold uppercase tracking-wider">
+                      {book.badgeText}
+                    </span>
+                    <span className="text-[10px] uppercase font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 shrink-0">
+                      Coming Soon
+                    </span>
+                  </div>
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+
       </main>
 
+      {/* 3. FULL-WIDTH SECOND HERO BANNER: FEATURED SPECIAL READING */}
+      <section id="books" className="w-full relative bg-[#0B2545] border-t border-[#0284C7]/30 border-b border-[#0284C7]/30 shadow-2xl text-white overflow-hidden mt-16 pb-16 pt-16">
+        
+        {/* Subtle Atmospheric Background Texture Layer */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center opacity-15 pointer-events-none"
+          style={{ backgroundImage: `url('/background.png')` }}
+        />
+        {/* Deep Atmospheric Sky Gradient */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#071930]/85 via-[#0B2545]/75 to-[#0B2545] pointer-events-none" />
+        {/* Soft Blue Luminous Glow Accent */}
+        <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-[#38BDF8]/20 blur-[100px] rounded-full pointer-events-none z-0" />
+
+        {/* Full-width container inside constraints */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-14 items-center">
+          
+          {/* Text Column */}
+          <div className="space-y-6 order-2 md:order-1">
+            <span className="inline-block text-[11px] uppercase tracking-widest text-[#38BDF8] font-extrabold bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-sm">
+              Ethereal Readings
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white font-bold leading-snug drop-shadow-md">
+              Scariest Revelations From A Man Who Has Seen The Future
+            </h2>
+            <p className="text-base sm:text-lg text-sky-100/90 leading-relaxed font-normal max-w-2xl">
+              An unfiltered look into visions of coming shifts, cultural awakenings, and the roadmap of tomorrow. Joseph Esenowo shares profound, unfiltered insights received about geopolitical rearrangement and the restructuring of integrity.
+            </p>
+            <div className="pt-3">
+              <Link 
+                href="/scariest-revelations" 
+                className="inline-flex items-center gap-3 text-xs sm:text-sm font-bold tracking-widest uppercase text-[#0B2545] bg-[#38BDF8] hover:bg-white px-8 py-4 rounded-full transition-all shadow-2xl group"
+              >
+                <span>Explore Content</span>
+                <span className="transform group-hover:translate-x-1.5 transition-transform">&rarr;</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Image Column */}
+          <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl group order-1 md:order-2 bg-[#071930]">
+            <img 
+              src="/hero-books.jpeg" 
+              alt="Prophetic Readings Collection" 
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+            />
+            {/* Soft gradient overlay on image */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#071930]/90 via-transparent to-transparent opacity-80" />
+            
+            {/* Label inside image */}
+            <span className="absolute bottom-4 left-4 text-xs font-serif tracking-widest text-[#38BDF8] uppercase font-bold bg-[#0B2545]/80 px-3 py-1 rounded-md backdrop-blur-sm shadow-sm">
+              Literature Collection
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
       <footer className="w-full max-w-7xl mx-auto px-6 py-8 border-t border-[#CBD5E1] text-center text-xs text-[#475569] font-medium">
         <p>&copy; 2026 Ecclewise Preacher. All rights reserved.</p>
       </footer>
