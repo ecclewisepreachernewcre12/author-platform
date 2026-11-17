@@ -10,7 +10,6 @@ export default function BooksIndexPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
 
-  // Library of books formatted like a rich, fulfilling chat/archive list
   const books = [
     {
       id: "prophetic-letters",
@@ -56,15 +55,12 @@ export default function BooksIndexPage() {
       className="min-h-screen bg-[#E8F1F5] text-[#111827] flex flex-col justify-between select-none selection:bg-[#0284C7] selection:text-white"
     >
       
-      {/* 1. IMMERSIVE PRIMARY HERO & HEADER SECTION */}
       <div className="relative w-full bg-[#0B2545] text-white overflow-hidden border-b border-[#0284C7]/30 shadow-xl">
         
-        {/* Sky Background Image Overlay */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-35 pointer-events-none transition-all duration-700"
-          style={{ backgroundImage: `url('/background.png')` }}
+          style={{ backgroundImage: `url('/background.jpg')` }}
         />
-        {/* Deep Atmospheric Sky Gradient */}
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#071930]/85 via-[#0B2545]/75 to-[#0B2545] pointer-events-none" />
         {/* Soft Luminous Glow */}
         <div className="absolute top-[-30%] left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-[#38BDF8]/20 blur-[130px] rounded-full pointer-events-none z-0" />
@@ -127,7 +123,6 @@ export default function BooksIndexPage() {
             </div>
           )}
 
-          {/* Hero Banner Content */}
           <div className="py-16 sm:py-24 text-center max-w-3xl mx-auto space-y-5">
             <span className="inline-block text-[11px] uppercase tracking-[0.25em] text-[#38BDF8] font-bold bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-sm">
               Digital Literature Archive
@@ -146,117 +141,113 @@ export default function BooksIndexPage() {
         </div>
       </div>
 
-      {/* 2. WHATSAPP-STYLE ARCHIVE FEED */}
-      <main className="w-full max-w-3xl mx-auto px-6 -mt-8 relative z-20 pb-16 space-y-6">
+      {/* 2. WHATSAPP-STYLE ARCHIVE FEED (DIRECTLY ON PAGE BACKGROUND ON MOBILE) */}
+      <main className="w-full max-w-3xl mx-auto px-0 sm:px-6 pt-6 sm:pt-10 pb-16 relative z-20">
         
-        {/* Archive Window Card */}
-        <div className="bg-white border border-[#CBD5E1] rounded-3xl shadow-2xl overflow-hidden">
-          
-          {/* Top Bar inside the Archive Card */}
-          <div className="bg-[#F4F9FB] px-6 py-4 border-b border-[#E2E8F0] flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7]" />
-              <span className="text-xs uppercase tracking-widest font-bold text-[#0B2545]">
-                Published &amp; Upcoming Volumes
-              </span>
-            </div>
-            <span className="text-[11px] font-semibold text-[#64748B]">
-              {books.length} Volumes
+        {/* Section Header Bar */}
+        <div className="px-5 sm:px-2 pb-3 flex items-center justify-between border-b border-[#CBD5E1]">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#0284C7]" />
+            <span className="text-xs uppercase tracking-widest font-bold text-[#0B2545]">
+              Published &amp; Upcoming Volumes
             </span>
           </div>
+          <span className="text-[11px] font-semibold text-[#64748B]">
+            {books.length} Volumes
+          </span>
+        </div>
 
-          {/* Chat-Style Rows */}
-          <div className="divide-y divide-[#E2E8F0]">
-            {books.map((book) => (
-              book.available ? (
-                <Link 
-                  key={book.id} 
-                  href={`/books/${book.id}`}
-                  className="flex items-start gap-4 sm:gap-5 p-5 sm:p-6 hover:bg-[#F0F8FF] transition-all group relative"
-                >
-                  {/* Left Profile Avatar (Clean) */}
-                  <div className="relative shrink-0 mt-1">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#0284C7] shadow-md group-hover:scale-105 transition-transform bg-[#0B2545] flex items-center justify-center">
-                      {book.cover ? (
-                        <img 
-                          src={book.cover} 
-                          alt={book.title} 
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <span className="text-white font-serif font-bold text-lg">EP</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Center Title & Message Preview (Full title display) */}
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <div className="flex items-start justify-between gap-3">
-                      <h2 className="text-base sm:text-lg font-serif text-[#0B2545] font-bold group-hover:text-[#0284C7] transition">
-                        {book.title} {/* Title Wraps gracefully */}
-                      </h2>
-                      <span className="text-[11px] text-[#0284C7] font-bold shrink-0 mt-1">
-                        {book.status}
-                      </span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-[#475569] font-normal leading-relaxed">
-                      {book.preview}
-                    </p>
-                  </div>
-
-                  {/* Right Pill & Chevron */}
-                  <div className="flex flex-col items-end gap-2 shrink-0 pl-2 mt-1">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#0284C7] text-white text-[10px] font-bold tracking-wide shadow-sm">
-                      {book.badgeText}
-                    </span>
-                    <span className="text-xs text-[#0284C7] font-bold group-hover:translate-x-1 transition-transform">
-                      Open &rarr;
-                    </span>
-                  </div>
-                </Link>
-              ) : (
-                <div 
-                  key={book.id}
-                  className="flex items-start gap-4 sm:gap-5 p-5 sm:p-6 bg-[#F8FAFC]/80 cursor-not-allowed group"
-                >
-                  {/* Left Muted Avatar */}
-                  <div className="relative shrink-0 mt-1">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#E2E8F0] border border-[#CBD5E1] text-[#64748B] flex items-center justify-center font-serif font-bold text-base sm:text-lg">
-                      EP
-                    </div>
-                  </div>
-
-                  {/* Center Title & Subtitle (Full title display) */}
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <div className="flex items-start justify-between gap-3">
-                      <h2 className="text-base sm:text-lg font-serif text-[#475569] font-bold">
-                        {book.title} {/* Title Wraps gracefully */}
-                      </h2>
-                    </div>
-                    <p className="text-xs sm:text-sm text-[#64748B]">
-                      {book.preview}
-                    </p>
-                  </div>
-
-                  {/* Right Status Tag */}
-                  <div className="flex flex-col items-end gap-2 shrink-0 pl-2 mt-1">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#E2E8F0] text-[#475569] text-[10px] font-bold uppercase tracking-wider">
-                      {book.badgeText}
-                    </span>
-                    <span className="text-[10px] uppercase font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 shrink-0">
-                      Coming Soon
-                    </span>
+        {/* Native Edge-to-Edge Chat Rows (No Box Container) */}
+        <div className="divide-y divide-[#CBD5E1]/80">
+          {books.map((book) => (
+            book.available ? (
+              <Link 
+                key={book.id} 
+                href={`/books/${book.id}`}
+                className="flex items-start gap-4 sm:gap-5 px-5 sm:px-4 py-5 hover:bg-white/60 active:bg-white/80 transition-all group"
+              >
+                {/* Left Profile Avatar */}
+                <div className="relative shrink-0 mt-0.5">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#0284C7] shadow-sm group-hover:scale-105 transition-transform bg-[#0B2545] flex items-center justify-center">
+                    {book.cover ? (
+                      <img 
+                        src={book.cover} 
+                        alt={book.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-white font-serif font-bold text-lg">EP</span>
+                    )}
                   </div>
                 </div>
-              )
-            ))}
-          </div>
+
+                {/* Center Title & Message Preview */}
+                <div className="flex-1 min-w-0 space-y-1.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <h2 className="text-base sm:text-lg font-serif text-[#0B2545] font-bold group-hover:text-[#0284C7] transition leading-snug">
+                      {book.title}
+                    </h2>
+                    <span className="text-[11px] text-[#0284C7] font-bold shrink-0 mt-0.5">
+                      {book.status}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#475569] font-normal leading-relaxed">
+                    {book.preview}
+                  </p>
+                </div>
+
+                {/* Right Pill & Chevron */}
+                <div className="flex flex-col items-end gap-2 shrink-0 pl-1 mt-0.5">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#0284C7] text-white text-[10px] font-bold tracking-wide shadow-sm">
+                    {book.badgeText}
+                  </span>
+                  <span className="text-xs text-[#0284C7] font-bold group-hover:translate-x-1 transition-transform">
+                    Open &rarr;
+                  </span>
+                </div>
+              </Link>
+            ) : (
+              <div 
+                key={book.id}
+                className="flex items-start gap-4 sm:gap-5 px-5 sm:px-4 py-5 opacity-75 cursor-not-allowed"
+              >
+                {/* Left Muted Avatar */}
+                <div className="relative shrink-0 mt-0.5">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#D5E6EE] border border-[#B8D4E3] text-[#475569] flex items-center justify-center font-serif font-bold text-base sm:text-lg">
+                    EP
+                  </div>
+                </div>
+
+                {/* Center Title & Subtitle */}
+                <div className="flex-1 min-w-0 space-y-1.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <h2 className="text-base sm:text-lg font-serif text-[#334155] font-bold leading-snug">
+                      {book.title}
+                    </h2>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
+                    {book.preview}
+                  </p>
+                </div>
+
+                {/* Right Status Tag */}
+                <div className="flex flex-col items-end gap-2 shrink-0 pl-1 mt-0.5">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#D5E6EE] text-[#334155] text-[10px] font-bold uppercase tracking-wider">
+                    {book.badgeText}
+                  </span>
+                  <span className="text-[10px] uppercase font-bold text-amber-800 bg-amber-100/80 px-2.5 py-0.5 rounded-full border border-amber-300 shrink-0">
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+            )
+          ))}
         </div>
 
       </main>
 
       {/* 3. FULL-WIDTH SECOND HERO BANNER: FEATURED SPECIAL READING */}
-      <section id="books" className="w-full relative bg-[#0B2545] border-t border-[#0284C7]/30 border-b border-[#0284C7]/30 shadow-2xl text-white overflow-hidden mt-16 pb-16 pt-16">
+      <section id="books" className="w-full relative bg-[#0B2545] border-t border-[#0284C7]/30 border-b border-[#0284C7]/30 shadow-2xl text-white overflow-hidden mt-8 pb-16 pt-16">
         
         {/* Subtle Atmospheric Background Texture Layer */}
         <div 
@@ -300,10 +291,7 @@ export default function BooksIndexPage() {
               alt="Prophetic Readings Collection" 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
             />
-            {/* Soft gradient overlay on image */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#071930]/90 via-transparent to-transparent opacity-80" />
-            
-            {/* Label inside image */}
             <span className="absolute bottom-4 left-4 text-xs font-serif tracking-widest text-[#38BDF8] uppercase font-bold bg-[#0B2545]/80 px-3 py-1 rounded-md backdrop-blur-sm shadow-sm">
               Literature Collection
             </span>
