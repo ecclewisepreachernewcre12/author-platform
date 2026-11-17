@@ -181,9 +181,7 @@ export default function HomePage() {
           {/* Hero Main Body */}
           <main className="w-full max-w-3xl mx-auto text-center space-y-6 my-auto py-12">
             <div className="space-y-4">
-              <span className="inline-block text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#38BDF8] font-bold bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full shadow-sm">
-                Prophetic History &amp; Insights
-              </span>
+              
               <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-bold tracking-wide text-white leading-tight drop-shadow-md">
                 THE BEGINNING OF A PROPHETIC HISTORY
               </h1>
@@ -201,6 +199,9 @@ export default function HomePage() {
               <p className="text-sm sm:text-lg text-sky-100/90 leading-relaxed max-w-xl mx-auto font-normal">
                 This platform exists to share prophetic letters, articles, essays, and books freely, because the Gospel is not for sale. Explore the writings, be encouraged, and receive insight for the challenges of the 21st century.
               </p>
+              <span className="inline-block text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#38BDF8] font-bold bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full shadow-sm">
+                Prophetic History &amp; Insights
+              </span>
             </div>
 
             <div className="pt-4">
