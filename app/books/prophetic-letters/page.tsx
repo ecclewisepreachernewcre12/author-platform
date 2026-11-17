@@ -22,7 +22,7 @@ export default function BookDetailPage() {
   const badges = [
     {
       id: 1,
-      title: "Badge 1: Foundation",
+      title: "Badge 1: Reedeeming The World From A Great Chaos",
       releaseDateStr: "December 5, 2026",
       releaseDate: new Date("2026-12-05T00:00:00"),
       items: [
@@ -234,7 +234,6 @@ export default function BookDetailPage() {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {badges.map((badge) => {
-              // Badge 1 is always unlocked. Others check if currentDate has arrived
               const isUnlocked = badge.id === 1 || (currentDate !== null && currentDate >= badge.releaseDate)
               
               return (
@@ -304,7 +303,7 @@ export default function BookDetailPage() {
             <div className="space-y-4">
               <h4 className="text-xs uppercase tracking-widest text-[#0B2545] font-bold flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#0284C7]" />
-                Contents in this Badge
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita iusto modi nesciunt voluptatibus. Consectetur beatae doloribus animi blanditiis molestiae dicta sequi repellendus, velit quasi perferendis culpa laudantium soluta accusamus quis.
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {activeBadgeData.items.map((item, idx) => {

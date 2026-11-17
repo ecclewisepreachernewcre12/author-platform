@@ -206,7 +206,7 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
 
           <div className="space-y-6">
             <h2 className="text-2xl sm:text-3xl font-serif text-[#0B2545] font-bold">
-              {currentLetter.title} — Page {currentPage}
+              {currentLetter.title}: The Maker Of The World Power Has Spoken: 600 Years Have Been Defined
             </h2>
             <div className="w-12 h-1 bg-[#0284C7] rounded-full" />
 
