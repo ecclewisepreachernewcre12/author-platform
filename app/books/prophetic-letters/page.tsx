@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -10,6 +10,13 @@ export default function BookDetailPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
   const [selectedBadge, setSelectedBadge] = useState<number>(1)
+
+  // Safe client-side date state to satisfy Next.js prerendering rules
+  const [currentDate, setCurrentDate] = useState<Date | null>(null)
+
+  useEffect(() => {
+    setCurrentDate(new Date())
+  }, [])
 
   // Badges with exact release dates
   const badges = [
@@ -115,7 +122,6 @@ export default function BookDetailPage() {
     },
   ]
 
-  const currentDate = new Date()
   const activeBadgeData = badges.find(b => b.id === selectedBadge)
 
   return (
@@ -176,7 +182,6 @@ export default function BookDetailPage() {
           {mobileMenuOpen && (
             <div className="md:hidden absolute top-20 left-4 right-4 bg-[#0F2E54]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-6 shadow-2xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-sky-100">
               <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15">Home</Link>
-              
               <div>
                 <button 
                   onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
@@ -192,7 +197,6 @@ export default function BookDetailPage() {
                   </div>
                 )}
               </div>
-
               <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15 text-[#38BDF8]">Books</Link>
               <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15">Contact</Link>
               <Link href="/give" onClick={() => setMobileMenuOpen(false)} className="py-1">Support</Link>
@@ -230,7 +234,8 @@ export default function BookDetailPage() {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {badges.map((badge) => {
-              const isUnlocked = badge.id === 1 || currentDate >= badge.releaseDate
+              // Badge 1 is always unlocked. Others check if currentDate has arrived
+              const isUnlocked = badge.id === 1 || (currentDate !== null && currentDate >= badge.releaseDate)
               
               return (
                 <button
