@@ -2,36 +2,61 @@
 
 import { useState, use, Suspense } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
-const letterPageCounts: { [key: string]: { title: string; totalPages: number } } = {
-  "letter-1": { title: "Letter 1", totalPages: 35 },
-  "letter-2": { title: "Letter 2", totalPages: 35 },
-  "letter-3": { title: "Letter 3", totalPages: 35 },
-  "letter-4": { title: "Letter 4", totalPages: 25 },
-  "letter-5": { title: "Letter 5", totalPages: 7 },
-  "letter-6": { title: "Letter 6", totalPages: 16 },
-  "letter-7": { title: "Letter 7", totalPages: 10 },
-  "letter-8": { title: "Letter 8", totalPages: 10 },
-  "letter-9": { title: "Letter 9", totalPages: 10 },
-  "letter-10": { title: "Letter 10", totalPages: 10 },
-  "letter-11": { title: "Letter 11", totalPages: 5 },
-  "letter-12": { title: "Letter 12", totalPages: 6 },
-  "letter-13": { title: "Letter 13", totalPages: 13 },
-  "letter-14": { title: "Letter 14", totalPages: 10 },
-  "letter-15": { title: "Letter 15", totalPages: 8 },
-  "letter-16": { title: "Letter 16", totalPages: 10 },
-  "letter-17": { title: "Letter 17", totalPages: 7 },
-  "letter-18": { title: "Letter 18", totalPages: 13 },
-  "letter-19": { title: "Letter 19", totalPages: 11 },
-  "letter-20": { title: "Letter 20", totalPages: 10 },
-  "letter-21": { title: "Letter 21", totalPages: 33 },
-  "letter-22": { title: "Letter 22", totalPages: 14 },
-  "letter-23": { title: "Letter 23", totalPages: 6 },
-  "letter-24": { title: "Letter 24", totalPages: 20 },
-  "letter-25": { title: "Letter 25", totalPages: 6 },
-  "letter-26": { title: "Letter 26", totalPages: 14 },
-  "letter-27": { title: "Letter 27", totalPages: 27 },
+// Complete bidirectional manuscript registry (Letters & Bonus Writings) organized with display labels
+const manuscriptRegistry: { [key: string]: { title: string; label: string; totalPages: number; prevKey: string | null; nextKey: string | null } } = {
+  // --- BADGE 1 ---
+  "letter-1": { title: "Letter 1", label: "Letter 1 (Badge 1)", totalPages: 35, prevKey: null, nextKey: "letter-2" },
+  "letter-2": { title: "Letter 2", label: "Letter 2 (Badge 1)", totalPages: 35, prevKey: "letter-1", nextKey: "letter-3" },
+  "letter-3": { title: "Letter 3", label: "Letter 3 (Badge 1)", totalPages: 35, prevKey: "letter-2", nextKey: "letter-4" },
+  "letter-4": { title: "Letter 4", label: "Letter 4 (Badge 1)", totalPages: 25, prevKey: "letter-3", nextKey: "letter-5" },
+  "letter-5": { title: "Letter 5", label: "Letter 5 (Badge 1)", totalPages: 7, prevKey: "letter-4", nextKey: "letter-6" },
+  "letter-6": { title: "Letter 6", label: "Letter 6 (Badge 1)", totalPages: 16, prevKey: "letter-5", nextKey: "badge-1-bonus" },
+  "badge-1-bonus": { title: "Badge 1: Bonus Writing", label: "Bonus Writing (Badge 1)", totalPages: 18, prevKey: "letter-6", nextKey: "letter-7" },
+
+  // --- BADGE 2 ---
+  "letter-7": { title: "Letter 7", label: "Letter 7 (Badge 2)", totalPages: 10, prevKey: "badge-1-bonus", nextKey: "letter-8" },
+  "letter-8": { title: "Letter 8", label: "Letter 8 (Badge 2)", totalPages: 10, prevKey: "letter-7", nextKey: "letter-9" },
+  "letter-9": { title: "Letter 9", label: "Letter 9 (Badge 2)", totalPages: 10, prevKey: "letter-8", nextKey: "letter-10" },
+  "letter-10": { title: "Letter 10", label: "Letter 10 (Badge 2)", totalPages: 10, prevKey: "letter-9", nextKey: "badge-2-bonus-1" },
+  "badge-2-bonus-1": { title: "Badge 2: Bonus Writing 1", label: "Bonus Writing 1 (Badge 2)", totalPages: 6, prevKey: "letter-10", nextKey: "badge-2-bonus-2" },
+  "badge-2-bonus-2": { title: "Badge 2: Bonus Writing 2", label: "Bonus Writing 2 (Badge 2)", totalPages: 9, prevKey: "badge-2-bonus-1", nextKey: "letter-11" },
+
+  // --- BADGE 3 ---
+  "letter-11": { title: "Letter 11", label: "Letter 11 (Badge 3)", totalPages: 5, prevKey: "badge-2-bonus-2", nextKey: "letter-12" },
+  "letter-12": { title: "Letter 12", label: "Letter 12 (Badge 3)", totalPages: 6, prevKey: "letter-11", nextKey: "letter-13" },
+  "letter-13": { title: "Letter 13", label: "Letter 13 (Badge 3)", totalPages: 13, prevKey: "letter-12", nextKey: "letter-14" },
+  "letter-14": { title: "Letter 14", label: "Letter 14 (Badge 3)", totalPages: 10, prevKey: "letter-13", nextKey: "badge-3-bonus" },
+  "badge-3-bonus": { title: "Badge 3: Bonus Writings", label: "Bonus Writings (Badge 3)", totalPages: 7, prevKey: "letter-14", nextKey: "letter-15" },
+
+  // --- BADGE 4 ---
+  "letter-15": { title: "Letter 15", label: "Letter 15 (Badge 4)", totalPages: 8, prevKey: "badge-3-bonus", nextKey: "letter-16" },
+  "letter-16": { title: "Letter 16", label: "Letter 16 (Badge 4)", totalPages: 10, prevKey: "letter-15", nextKey: "badge-4-bonus" },
+  "badge-4-bonus": { title: "Badge 4: Bonus Writing", label: "Bonus Writing (Badge 4)", totalPages: 11, prevKey: "letter-16", nextKey: "letter-17" },
+
+  // --- BADGE 5 ---
+  "letter-17": { title: "Letter 17", label: "Letter 17 (Badge 5)", totalPages: 7, prevKey: "badge-4-bonus", nextKey: "letter-18" },
+  "letter-18": { title: "Letter 18", label: "Letter 18 (Badge 5)", totalPages: 13, prevKey: "letter-17", nextKey: "badge-5-bonus-1" },
+  "badge-5-bonus-1": { title: "Badge 5: Bonus Writing 1", label: "Bonus Writing 1 (Badge 5)", totalPages: 7, prevKey: "letter-18", nextKey: "badge-5-bonus-2" },
+  "badge-5-bonus-2": { title: "Badge 5: Bonus Writing 2", label: "Bonus Writing 2 (Badge 5)", totalPages: 9, prevKey: "badge-5-bonus-1", nextKey: "letter-19" },
+
+  // --- BADGE 6 ---
+  "letter-19": { title: "Letter 19", label: "Letter 19 (Badge 6)", totalPages: 11, prevKey: "badge-5-bonus-2", nextKey: "letter-20" },
+  "letter-20": { title: "Letter 20", label: "Letter 20 (Badge 6)", totalPages: 10, prevKey: "letter-19", nextKey: "letter-21" },
+  "letter-21": { title: "Letter 21", label: "Letter 21 (Badge 6)", totalPages: 33, prevKey: "letter-20", nextKey: "badge-6-bonus" },
+  "badge-6-bonus": { title: "Badge 6: Bonus Writing", label: "Bonus Writing (Badge 6)", totalPages: 10, prevKey: "letter-21", nextKey: "letter-22" },
+
+  // --- BADGE 7 ---
+  "letter-22": { title: "Letter 22", label: "Letter 22 (Badge 7)", totalPages: 14, prevKey: "badge-6-bonus", nextKey: "letter-23" },
+  "letter-23": { title: "Letter 23", label: "Letter 23 (Badge 7)", totalPages: 6, prevKey: "letter-22", nextKey: "letter-24" },
+  "letter-24": { title: "Letter 24", label: "Letter 24 (Badge 7)", totalPages: 20, prevKey: "letter-23", nextKey: "badge-7-bonus" },
+  "badge-7-bonus": { title: "Badge 7: Bonus Writing", label: "Bonus Writing (Badge 7)", totalPages: 12, prevKey: "letter-24", nextKey: "letter-25" },
+
+  // --- BADGE 8 ---
+  "letter-25": { title: "Letter 25", label: "Letter 25 (Badge 8)", totalPages: 6, prevKey: "badge-7-bonus", nextKey: "letter-26" },
+  "letter-26": { title: "Letter 26", label: "Letter 26 (Badge 8)", totalPages: 14, prevKey: "letter-25", nextKey: "letter-27" },
+  "letter-27": { title: "Letter 27", label: "Letter 27 (Badge 8)", totalPages: 27, prevKey: "letter-26", nextKey: null },
 }
 
 const letter1Page1Paragraphs = [
@@ -49,8 +74,9 @@ const letter1Page1Paragraphs = [
 
 function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
   const resolvedParams = use(params)
-  const letterKey = resolvedParams?.letterId ? resolvedParams.letterId.toLowerCase() : 'letter-1'
-  const currentLetter = letterPageCounts[letterKey] || { title: "Prophetic Letter", totalPages: 10 }
+  const router = useRouter()
+  const itemKey = resolvedParams?.letterId ? resolvedParams.letterId.toLowerCase() : 'letter-1'
+  const currentItem = manuscriptRegistry[itemKey] || { title: "Prophetic Manuscript", label: "Manuscript", totalPages: 10, prevKey: null, nextKey: null }
 
   const pathname = usePathname()
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -58,16 +84,25 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState<number>(1)
 
+  const prevItemData = currentItem.prevKey ? manuscriptRegistry[currentItem.prevKey] : null
+  const nextItemData = currentItem.nextKey ? manuscriptRegistry[currentItem.nextKey] : null
+
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else if (currentItem.prevKey) {
+      router.push(`/books/prophetic-letters/${currentItem.prevKey}`)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
   const goToNextPage = () => {
-    if (currentPage < currentLetter.totalPages) {
+    if (currentPage < currentItem.totalPages) {
       setCurrentPage(currentPage + 1)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else if (currentItem.nextKey) {
+      router.push(`/books/prophetic-letters/${currentItem.nextKey}`)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
@@ -80,8 +115,6 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
       
       {/* IMMERSIVE HERO & HEADER SECTION */}
       <div className="relative w-full bg-[#0B2545] text-white overflow-hidden border-b border-[#0284C7]/30 shadow-xl">
-        
-        {/* Sky Background Image Overlay */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-35 pointer-events-none transition-all duration-700"
           style={{ backgroundImage: `url('/background.jpg')` }}
@@ -90,8 +123,6 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
         <div className="absolute top-[-30%] left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-[#38BDF8]/20 blur-[130px] rounded-full pointer-events-none z-0" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10">
-          
-          {/* Navigation Header */}
           <header className="w-full py-6 flex items-center justify-between border-b border-white/15 relative">
             <Link href="/" className="font-serif tracking-widest text-xs sm:text-sm uppercase text-white hover:text-[#38BDF8] transition font-bold -ml-2 sm:-ml-4">
               Ecclewise Preacher
@@ -100,7 +131,6 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
             <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-wider font-semibold text-sky-100 mr-[-1rem]">
               <Link href="/" className={`transition-all ${pathname === '/' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Home</Link>
               
-              {/* About Dropdown */}
               <div className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
                 <button onClick={() => setDropdownOpen(!dropdownOpen)} className={`flex items-center gap-1 transition-all focus:outline-none py-1 ${pathname.startsWith('/about') ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>
                   <span>About</span><span className="text-[10px]">&▾</span>
@@ -125,58 +155,49 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
             </button>
           </header>
 
-          {/* Mobile Menu Drawer */}
-          {mobileMenuOpen && (
-            <div className="md:hidden absolute top-20 left-4 right-4 bg-[#0F2E54]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-6 shadow-2xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-sky-100">
-              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15">Home</Link>
-              <div>
-                <button 
-                  onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
-                  className="w-full flex justify-between items-center hover:text-white py-1 border-b border-white/15"
-                >
-                  <span>About</span>
-                  <span>{mobileAboutOpen ? '▴' : '▾'}</span>
-                </button>
-                {mobileAboutOpen && (
-                  <div className="pl-4 py-2 space-y-2 flex flex-col bg-white/5 rounded-lg mt-2">
-                    <Link href="/about/website" onClick={() => setMobileMenuOpen(false)} className="text-[11px] text-sky-100 hover:text-[#38BDF8]">About the Website</Link>
-                    <Link href="/about/author" onClick={() => setMobileMenuOpen(false)} className="text-[11px] text-sky-100 hover:text-[#38BDF8]">About the Author</Link>
-                  </div>
-                )}
-              </div>
-              <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15 text-[#38BDF8]">Books</Link>
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-1 border-b border-white/15">Contact</Link>
-              <Link href="/give" onClick={() => setMobileMenuOpen(false)} className="py-1">Support</Link>
-            </div>
-          )}
-
-          {/* Hero Banner Content */}
           <div className="py-16 sm:py-20 text-center max-w-3xl mx-auto space-y-5">
             <Link href="/books/prophetic-letters" className="inline-flex items-center text-xs uppercase tracking-widest text-[#38BDF8] hover:underline font-bold mb-2">
-              &larr; Back to Book 1 Badges
+              &larr; Back to Book Badges
             </Link>
             <div>
               <span className="inline-block text-[11px] uppercase tracking-[0.25em] text-[#38BDF8] font-bold bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 shadow-sm">
-                {currentLetter.title} &bull; Prophetic History Archive
+                {currentItem.title} &bull; Prophetic History Archive
               </span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-serif text-white leading-tight font-bold drop-shadow-md">
               Manuscript Reader View
             </h1>
           </div>
-
         </div>
       </div>
 
-      {/* Main Content / Edge-to-Edge Manuscript Reader */}
+      {/* Main Reader View */}
       <main className="w-full max-w-4xl mx-auto px-6 py-12 space-y-8">
         
-        {/* Page Jump Navigation Control Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2 px-1 border-b border-[#CBD5E1]">
-          <div className="text-xs uppercase tracking-wider font-bold text-[#0B2545]">
-            Reading: <span className="text-[#0284C7]">{currentLetter.title}</span>
+        {/* Navigation Control Bar: Letter Selector & Page Jump Selector Side-by-Side */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-3 px-2 bg-white border border-[#CBD5E1] rounded-2xl shadow-sm">
+          
+          {/* Letter Navigation Dropdown */}
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] uppercase tracking-widest text-[#64748B] font-bold">Select Letter:</span>
+            <select 
+              value={itemKey}
+              onChange={(e) => {
+                setCurrentPage(1)
+                router.push(`/books/prophetic-letters/${e.target.value}`)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              className="bg-[#F8FAFC] text-[#0B2545] border border-[#CBD5E1] text-xs font-semibold rounded-xl px-3.5 py-2 focus:outline-none focus:border-[#0284C7] cursor-pointer shadow-inner max-w-[220px] sm:max-w-xs truncate"
+            >
+              {Object.keys(manuscriptRegistry).map((key) => (
+                <option key={key} value={key}>
+                  {manuscriptRegistry[key].label}
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* Page Jump Selector Dropdown */}
           <div className="flex items-center gap-3">
             <span className="text-[11px] uppercase tracking-widest text-[#64748B] font-bold">Jump to page:</span>
             <select 
@@ -185,31 +206,32 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
                 setCurrentPage(Number(e.target.value))
                 window.scrollTo({ top: 0, behavior: 'smooth' })
               }}
-              className="bg-white text-[#0B2545] border border-[#CBD5E1] text-xs font-semibold rounded-xl px-3 py-2 focus:outline-none focus:border-[#0284C7] cursor-pointer shadow-sm"
+              className="bg-[#F8FAFC] text-[#0B2545] border border-[#CBD5E1] text-xs font-semibold rounded-xl px-3 py-2 focus:outline-none focus:border-[#0284C7] cursor-pointer shadow-inner"
             >
-              {Array.from({ length: currentLetter.totalPages }, (_, i) => (
+              {Array.from({ length: currentItem.totalPages }, (_, i) => (
                 <option key={i + 1} value={i + 1}>
-                  Page {i + 1} of {currentLetter.totalPages}
+                  Page {i + 1} of {currentItem.totalPages}
                 </option>
               ))}
             </select>
           </div>
+
         </div>
 
         <div className="space-y-8 pt-4 pb-8">
           
           <div className="flex justify-between items-center text-xs uppercase tracking-widest text-[#64748B] font-semibold border-b border-[#CBD5E1] pb-3">
             <span>Joseph Esenowo Collection</span>
-            <span className="text-[#0284C7] font-bold">Page {currentPage} of {currentLetter.totalPages}</span>
+            <span className="text-[#0284C7] font-bold">Page {currentPage} of {currentItem.totalPages}</span>
           </div>
 
           <div className="space-y-6">
             <h2 className="text-2xl sm:text-3xl font-serif text-[#0B2545] font-bold">
-              {currentLetter.title}: The Maker Of The World Power Has Spoken: 600 Years Have Been Defined
+              {currentItem.title}: Unfolding Insights Across the Ages
             </h2>
             <div className="w-12 h-1 bg-[#0284C7] rounded-full" />
 
-            {letterKey === 'letter-1' && currentPage === 1 ? (
+            {itemKey === 'letter-1' && currentPage === 1 ? (
               <div className="space-y-6 text-base sm:text-lg text-[#111827] leading-loose font-normal pt-2">
                 {letter1Page1Paragraphs.map((para, idx) => (
                   <p key={idx} className="first-letter:text-4xl first-letter:font-serif first-letter:font-bold first-letter:text-[#0B2545]">
@@ -220,49 +242,49 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
             ) : (
               <div className="space-y-6 text-base sm:text-lg text-[#475569] leading-loose font-normal pt-2 italic">
                 <p>
-                  &ldquo;You are currently viewing Page {currentPage} of {currentLetter.title}. Place your text here for page {currentPage}...&rdquo;
+                  &ldquo;You are currently viewing Page {currentPage} of {currentItem.title}. Place your text here for page {currentPage}...&rdquo;
                 </p>
               </div>
             )}
           </div>
 
+          {/* Bidirectional Pagination Controls */}
           <div className="flex items-center justify-between pt-10 border-t border-[#CBD5E1] mt-12">
             <button
               onClick={goToPreviousPage}
-              disabled={currentPage === 1}
+              disabled={!currentItem.prevKey && currentPage === 1}
               className={`px-6 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition border ${
-                currentPage === 1 
+                !currentItem.prevKey && currentPage === 1 
                   ? 'bg-transparent text-[#94A3B8] border-[#CBD5E1]/60 cursor-not-allowed shadow-none' 
                   : 'bg-white text-[#0B2545] border-[#CBD5E1] hover:border-[#0284C7] hover:bg-[#F0F8FF] shadow-sm'
               }`}
             >
-              &larr; Previous Page
+              {currentPage === 1 && prevItemData 
+                ? `← ${prevItemData.title}` 
+                : '← Previous Page'}
             </button>
 
             <span className="text-xs text-[#64748B] uppercase tracking-wider font-bold">
-              Page {currentPage} / {currentLetter.totalPages}
+              Page {currentPage} / {currentItem.totalPages}
             </span>
 
             <button
               onClick={goToNextPage}
-              disabled={currentPage === currentLetter.totalPages}
-              className={`px-6 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition border ${
-                currentPage === currentLetter.totalPages 
-                  ? 'bg-transparent text-[#94A3B8] border-[#CBD5E1]/60 cursor-not-allowed shadow-none' 
-                  : 'bg-[#0284C7] text-white border-[#0284C7] hover:bg-[#0369A1] shadow-md'
-              }`}
+              className="px-6 py-3 rounded-2xl text-xs uppercase tracking-wider font-bold transition border bg-[#0284C7] text-white border-[#0284C7] hover:bg-[#0369A1] shadow-md"
             >
-              Next Page &rarr;
+              {currentPage < currentItem.totalPages 
+                ? 'Next Page →' 
+                : nextItemData 
+                ? `Proceed to ${nextItemData.title} →` 
+                : 'End of Archive'}
             </button>
           </div>
 
         </div>
       </main>
 
-      {/* SUPPORT / DONATION FULL-WIDTH BANNER SECTION */}
+      {/* Support / Donation Full-Width Banner Section */}
       <section className="w-full relative bg-[#0B2545] border-t border-[#0284C7]/30 border-b border-[#0284C7]/30 shadow-2xl text-white overflow-hidden py-16 mt-12">
-        
-        {/* Atmospheric Background Texture Layer */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center opacity-15 pointer-events-none"
           style={{ backgroundImage: `url('/background.jpg')` }}
