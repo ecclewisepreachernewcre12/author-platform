@@ -130,7 +130,6 @@ export default function BookDetailPage() {
       className="min-h-screen bg-[#E8F1F5] text-[#111827] flex flex-col justify-between select-none selection:bg-[#0284C7] selection:text-white"
     >
       
-      {/* IMMERSIVE HERO & HEADER SECTION */}
       <div className="relative w-full bg-[#0B2545] text-white overflow-hidden border-b border-[#0284C7]/30 shadow-xl">
         
         {/* Sky Background Image Overlay */}
@@ -153,7 +152,6 @@ export default function BookDetailPage() {
             <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-wider font-semibold text-sky-100 mr-[-1rem]">
               <Link href="/" className={`transition-all ${pathname === '/' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Home</Link>
               
-              {/* About Dropdown */}
               <div className="relative" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
                 <button onClick={() => setDropdownOpen(!dropdownOpen)} className={`flex items-center gap-1 transition-all focus:outline-none py-1 ${pathname.startsWith('/about') ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>
                   <span>About</span><span className="text-[10px]">&▾</span>
@@ -331,7 +329,7 @@ export default function BookDetailPage() {
                       <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-600" />
                         <span className="text-xs sm:text-sm font-serif font-bold text-[#334155] uppercase tracking-wider">
-                          {item.name} <span className="text-[10px] text-amber-700 font-sans tracking-normal font-semibold lowercase">(bonus)</span>
+                          {item.name}
                         </span>
                       </div>
                       <span className="text-[11px] text-[#64748B] font-bold bg-white px-3 py-1 rounded-full border border-[#CBD5E1]">

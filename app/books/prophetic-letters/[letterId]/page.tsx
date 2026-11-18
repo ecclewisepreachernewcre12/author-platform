@@ -123,11 +123,14 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
         <div className="absolute top-[-30%] left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-[#38BDF8]/20 blur-[130px] rounded-full pointer-events-none z-0" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10">
-          <header className="w-full py-6 flex items-center justify-between border-b border-white/15 relative">
+          
+          {/* Navigation Header */}
+          <header className="w-full py-6 flex items-center justify-between border-b border-white/15">
             <Link href="/" className="font-serif tracking-widest text-xs sm:text-sm uppercase text-white hover:text-[#38BDF8] transition font-bold -ml-2 sm:-ml-4">
               Ecclewise Preacher
             </Link>
             
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-wider font-semibold text-sky-100 mr-[-1rem]">
               <Link href="/" className={`transition-all ${pathname === '/' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Home</Link>
               
@@ -148,12 +151,48 @@ function LetterContent({ params }: { params: Promise<{ letterId: string }> }) {
               <Link href="/give" className={`transition-all ${pathname === '/give' ? 'text-[#38BDF8] font-bold' : 'hover:text-white'}`}>Support</Link>
             </nav>
 
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden text-white p-2 focus:outline-none hover:text-[#38BDF8] transition" aria-label="Toggle Menu">
+            {/* Mobile Menu Button */}
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+              className="md:hidden text-white p-2 focus:outline-none hover:text-[#38BDF8] transition z-50"
+              aria-label="Toggle Menu"
+            >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {mobileMenuOpen ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />}
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                )}
               </svg>
             </button>
           </header>
+
+          {/* Mobile Menu Drawer Modal (Fixed Positioning) */}
+          {mobileMenuOpen && (
+            <div className="md:hidden absolute top-20 left-4 right-4 bg-[#0F2E54] border border-white/20 rounded-2xl p-6 shadow-2xl z-50 flex flex-col space-y-4 text-xs uppercase tracking-wider font-semibold text-sky-100">
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-white/10 hover:text-[#38BDF8]">Home</Link>
+              
+              <div>
+                <button 
+                  onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+                  className="w-full flex justify-between items-center hover:text-white py-2 border-b border-white/10"
+                >
+                  <span>About</span>
+                  <span>{mobileAboutOpen ? '▴' : '▾'}</span>
+                </button>
+                {mobileAboutOpen && (
+                  <div className="pl-4 py-2 space-y-2 flex flex-col bg-white/5 rounded-lg mt-2">
+                    <Link href="/about/website" onClick={() => setMobileMenuOpen(false)} className="text-[11px] text-sky-100 hover:text-[#38BDF8]">About the Website</Link>
+                    <Link href="/about/author" onClick={() => setMobileMenuOpen(false)} className="text-[11px] text-sky-100 hover:text-[#38BDF8]">About the Author</Link>
+                  </div>
+                )}
+              </div>
+
+              <Link href="/books" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-white/10 text-[#38BDF8]">Books</Link>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-white/10">Contact</Link>
+              <Link href="/give" onClick={() => setMobileMenuOpen(false)} className="py-2">Support</Link>
+            </div>
+          )}
 
           <div className="py-16 sm:py-20 text-center max-w-3xl mx-auto space-y-5">
             <Link href="/books/prophetic-letters" className="inline-flex items-center text-xs uppercase tracking-widest text-[#38BDF8] hover:underline font-bold mb-2">
